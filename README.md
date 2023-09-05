@@ -1,5 +1,8 @@
 # Bonbons
 #### Video Demo:    https://youtu.be/dqhidrnzuU0
+
+NOTE: This project is being continously updated and improved as I keep getting to know new concepts and tools of programming.
+
 #### Description:
 
 Welcome to Bonbons!
