@@ -1,0 +1,100 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Inspection
+{% endblock %}
+
+{% block body %}
+
+<form action="/inspection" method="post">
+
+    <label for="batch"><strong>Batch:</strong></label>
+    <input id="batch" name="batchname" readonly type=text value="{{ batchname }}">
+    <br><br>
+
+    {% if done %}
+
+    <label for="action"><strong>Action:</strong></label>
+        <input class="form-check-input" id="append" name="action" required style="margin-left: 10px;" type="radio" value="Append">
+        <label for="append" style="margin-left: 5px;">Append</label>
+        <input class="form-check-input" id="overwrite" name="action" onclick="confirmOverwrite()" style="margin-left: 10px;" type="radio" value="Overwrite">
+        <label for="overwrite" style="margin-left: 5px;">Overwrite</label>
+        <br><br>
+
+    {% endif %}
+
+    <table class="table  table-hover table-striped align-middle" >
+        <tr>
+            <th>Box</th>
+            {% for n in range(10) %}
+
+                {% set line = n + 1 %}
+
+                <th>Line {{ line }}</th>
+
+            {% endfor %}
+
+            <th>Reset</th>
+        </tr>
+
+        {% for i in range(5) %}
+        {% set box = i + 1 %}
+
+            <tr>
+                <td>{{ box }}</td>
+
+                {% for j in range(10) %}
+                {% set line = j + 1 %}
+
+                {% set position = box|string ~ "-" ~ line|string %}
+                {% set id = bonbons[position] %}
+
+                    <td>
+                        {% for defect in defects %}
+                            <input class="row-{{ box }}" name="{{ id }}" type="checkbox" value="{{ defect[0] }}">{{ defect[0] }}
+
+                            {% if loop.index is divisibleby 2 %}
+                                <br>
+                            {% endif %}
+
+                        {% endfor %}
+                    </td>
+
+                {% endfor %}
+
+                <td>
+                    <button class="btn btn-primary" onclick="deSelect({{ box }})" type="button">Reset Box {{ box }}</button>
+                </td>
+
+            </tr>
+
+        {% endfor %}
+
+    </table>
+
+    <div id="confirm"></div>
+
+    <button class="btn btn-primary" type="submit">Save inspection</button>
+
+</form>
+
+<script>
+
+    function confirmOverwrite() {
+        alert("You have selected to overwrite existing data. This will overwrite ALL fields. Choose 'Append' to keep existing data and add new.")
+    }
+
+    function deSelect(xy) {
+
+        let selects = document.getElementsByClassName(`row-${xy}`);
+
+        for (var i = 0; i < selects.length; i++) {
+            selects[i].checked = false;
+        }
+
+        document.getElementById(`taste-${xy}`).value = "";
+    }
+
+</script>
+
+{% endblock %}

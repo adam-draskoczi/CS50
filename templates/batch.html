@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Create batch
+{% endblock %}
+
+{% block body %}
+
+<div class="mb-3" style="width: 500px; margin: auto; text-align: center">
+
+    <form action="/batch" method="post">
+
+        <input class="form-control ifield" name="batchname" oninput="checkName(this)" placeholder="Batch name" required type="text">
+        <div id="alert" style="visibility: hidden; margin-top: 10px;">Batchname already taken. Please select an other one.</div><br>
+        <textarea class="form-control ifield" name="comment" placeholder="Comment (optional)"></textarea><br>
+
+        <button class="btn btn-primary" id="submit" type="submit">Create batch</button>
+
+    </form>
+
+</div>
+
+<script>
+
+    function checkName(ele) {
+
+        const names = {{ batches|tojson }};
+        var input = ele.value.toUpperCase();
+
+        if (names.includes(input)) {
+            document.getElementById("submit").disabled = true;
+            document.getElementById("alert").style.visibility = "";
+            document.getElementById("alert").innerHTML = ["Batchname ", input, " already taken. Please select an other one."].join("");
+        } else {
+            document.getElementById("alert").style.visibility = "hidden";
+            document.getElementById("alert").innerHTML = "Batchname already taken. Please select an other one.";
+            document.getElementById("submit").disabled = false;
+        }
+
+    }
+
+</script>
+
+
+{% endblock %}

@@ -1,0 +1,105 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Sign up
+{% endblock %}
+
+{% block body %}
+<div class="mb-3" style="width: 450px; margin: auto">
+    <form action="/register" method="post">
+        <input class="form-control ifield" name="firstname" placeholder="Your first name" required type="text"><br>
+        <input class="form-control ifield" name="lastname" placeholder="Your last name" required type="text"><br>
+
+        <select class="form-select ifield" name="area" required>
+            <option disable selected value="">Your area of function</option>
+            {% for area in areas %}
+            <option value="{{ area }}">{{ area }}</option>
+            {% endfor %}
+        </select><br>
+
+        <select class="form-select ifield" name="title" required>
+            <option disable selected value="">Your title of function</option>
+            {% for title in titles %}
+            <option name="{{ title }}">{{ title }}</option>
+            {% endfor %}
+        </select><br>
+
+        <input class="form-control ifield" name="username" onblur="checkUsername(this)" placeholder="Add username" required type="text"><br>
+        <input class="form-control ifield" id="password" name="password" oninput="showConfirmation(this)" placeholder="Add password" required type="password"><br>
+        <input class="form-control ifield" id="confirm" name="confirmation" oninput="checkConfirmation(this)" placeholder="Confirm password" required style="visibility:hidden" type="password">
+
+        <div class="alert" id="target-alert" style="visibility:hidden">Password(s) doesn't seem to be ok. Please type again.</div>
+
+        <button class="btn btn-primary" id="submit" type="submit">Register</button>
+
+    </form>
+</div>
+
+<script>
+    let username_submit = 1;
+    let password_submit = 1;
+    let confirmation_submit = 1;
+
+    function submit_button() {
+
+        if (username_submit * password_submit * confirmation_submit == 0) {
+            document.getElementById("submit").disabled = true;
+        } else {
+            document.getElementById("submit").disabled = false;
+        }
+
+    }
+
+    function checkUsername(ele) {
+
+        const userNames = {{ usernames | tojson }};
+        var reply = ele.value;
+        var input = reply.toUpperCase();
+
+        if (userNames.includes(input)) {
+            alert(["Username '", reply, "' and/or similar is already taken. Please choose an other one."].join(""));
+            username_submit = 0;
+        } else {
+            username_submit = 1;
+        }
+
+        submit_button();
+    }
+
+    function showConfirmation(ele) {
+
+        if (ele.value.length < 8) {
+            document.getElementById("target-alert").style.visibility = "";
+            document.getElementById("target-alert").innerHTML = "<strong>Password must contain at least 8 characters.</strong>"
+            document.getElementById("confirm").style.visibility = "hidden";
+            document.getElementById("confirm").value = "";
+            password_submit = 0;
+        } else if (ele.value.length > 7) {
+            document.getElementById("target-alert").style.visibility = "hidden";
+            document.getElementById("confirm").style.visibility = "";
+            password_submit = 1;
+        }
+
+        submit_button();
+    }
+
+    function checkConfirmation(ele) {
+
+        var password = document.getElementById("password").value;
+        var confirmation = ele.value;
+
+        if (password != confirmation) {
+            document.getElementById("target-alert").style.visibility = "";
+            document.getElementById("target-alert").innerHTML = '<strong>Password and confirmation must match</strong>';
+            confirmation_submit = 0;
+        } else if (password == confirmation) {
+            document.getElementById("target-alert").style.visibility = "hidden";
+            confirmation_submit = 1;
+        }
+
+        submit_button();
+
+    }
+</script>
+
+{% endblock %}

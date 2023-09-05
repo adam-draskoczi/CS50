@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Batch details
+{% endblock %}
+
+{% block body %}
+
+<h2><strong>{{ batchname }}</strong></h2>
+<h3><strong>Batch comment: </strong>
+    {% if comment %}
+        {{ comment }}
+    {% else %}
+        (None)
+    {% endif %}
+    </h3>
+<br>
+
+{% for process in areas %}
+
+{% if process %}
+<h3><strong>{{ process[0]["process"] }}</strong><br></h3>
+<h4>Date and time: {{ process[0]["datetime"] }}</h4>
+<h4>By: {{ workers[process[0]["by"]] }}</h4>
+<h4>Comment:
+    {% if process[0]["comment"] %}
+        {{ process[0]["comment"] }}
+    {% else %}
+        (None)
+    {% endif %}
+</h4>
+
+<table class="table table-hover table-striped align-middle" style="text-align: center">
+
+    <tr>
+        <th>Box</th>
+        <th>Temperature (&degC)</th>
+        <th>Type</th>
+    </tr>
+    {% for box in process %}
+        <tr>
+            <td>{{ box["box"] }}</td>
+            <td>{{ box["temp"] }}</td>
+            <td>{{ box["type"] }}</td>
+        </tr>
+    {% endfor %}
+
+</table>
+
+{% endif %}
+
+{% endfor %}
+
+{% endblock %}

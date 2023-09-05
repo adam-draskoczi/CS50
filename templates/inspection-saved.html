@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Saved inspection
+{% endblock %}
+
+{% block body %}
+
+<h3><strong>Batch name:</strong> {{ batchname }}</h3>
+<h4><strong>Last inspection</strong> {{ latest }}</h4>
+<br>
+<h4>Defects (last logged first)</h4>
+<br>
+
+<table class="table  table-hover table-striped align-middle">
+    <tr>
+        <th>Box</th>
+        {% for n in range(10) %}
+
+        {% set line = n + 1 %}
+
+        <th>Line {{ line }}</th>
+
+        {% endfor %}
+
+    </tr>
+    {% for i in range(5) %}
+    {% set box = i + 1 %}
+
+    <tr>
+        <td>{{ box }}</td>
+
+        {% for j in range(10) %}
+
+        <td>
+            {% set line = j + 1 %}
+
+            {% set position = box|string ~ "-" ~ line|string %}
+
+            {% for defect in defects[position] %}
+            {{ defect }}
+
+            {% if loop.index is divisibleby 2 %}
+            <br>
+            {% endif %}
+
+            {% endfor %}
+        </td>
+
+        {% endfor %}
+
+    </tr>
+
+    {% endfor %}
+</table>
+
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Run process
+{% endblock %}
+
+{% block body %}
+
+<form action="/process" method="post">
+
+    <div style="display: inline-block">
+        <label for="batch"><strong>Batch:</strong></label><br>
+        <input class="form-control" id="batch" name="batchname" readonly style="width: 200px; margin: auto" type=text value="{{ batchname }}"><br>
+    </div>
+
+    <div style="display: inline-block">
+        <label for="process"><strong>Process:</strong></label><br>
+        <input class="form-control" id="process" name="process" readonly style="width: 200px; margin: auto" type=text value="{{ userdata['area'] }}"><br>
+    </div>
+
+    <div>
+        <label for="process"><strong>Comment:</strong></label><br>
+        <input class="form-control" readonly style="width: 405px; margin: auto;" type="text" value="{{ comment }}">
+        <br>
+    </div>
+    <br>
+
+    {% for i in range(5) %}
+        {% set box = i + 1 %}
+
+            Set parameters for <strong>Box {{ box }}</strong>:<br>
+                    <input class="temp form-control" id="temp-{{ box }}" min="0" name="temp-{{ box }}" placeholder="Choose temperature" required step="0.1" style="width: 200px; display: inline-block; margin-bottom: 5px" type="number">
+                    <select class="type form-control" id="type-{{ box }}" name="type-{{ box }}" required style="width: 200px; display: inline-block; margin-bottom: 5px">
+                        <option disable selected value="">Choose chocolate type</option>
+                        <option value="Milk chocolate">Milk chocolate</option>
+                        <option value="Dark chocolate">Dark chocolate</option>
+                        <option value="White chocolate">White chocolate</option>
+                    </select>
+                    <button class="btn btn-primary" onclick="setForall('{{ box }}')"  style="margin-bottom: 5px;" type="button">Set for all boxes</button>
+                    <br>
+        {% endfor %}
+
+    <br>
+    <textarea class="form-control" name="comment" placeholder="Comment (optional)" style="width: 600px; margin: auto; margin-bottom: 5px" ></textarea><br>
+
+    <button class="btn btn-primary" type="submit">Save process</button>
+</form>
+
+<script>
+
+    function setForall(ele) {
+
+        let temp = document.getElementById(`temp-${ele}`).value;
+        let type = document.getElementById(`type-${ele}`).value;
+
+        let temps = document.getElementsByClassName("temp");
+        let types = document.getElementsByClassName("type");
+
+        for (var i = 0; i < 10; i++) {
+
+            temps[i].value = temp;
+            types[i].value = type;
+        }
+    }
+
+</script>
+
+{% endblock %}

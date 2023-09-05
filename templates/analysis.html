@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Analysis
+{% endblock %}
+
+{% block body %}
+
+Analysis of<br>
+The effect of: <strong>{{ parameter }}</strong> on: <strong>{{ defect }}</strong>
+{% if parameter != "Line" %}
+during: <strong>{{ proc }}</strong>
+{% endif %}
+<br>
+(Only inspected batches and bonbons analysed)
+<br><br>
+
+<table class="table table-hover table-striped" style="text-align: center">
+    <tr>
+        <th>
+            {% if parameter == "Line" %}
+            Line
+            {% elif parameter == "Temperature" or parameter == "Type" %}
+            {{ parameter }}
+                {% if parameter == "Temperature" %}
+                    (&degC)
+                {% endif %}
+            {% endif %}
+        </th>
+        <th>Bonbons processed</th>
+        <th>Bonbons defected</th>
+        <th>Ratio</th>
+    </tr>
+
+    {% for result in results %}
+    <tr>
+        <td>{{ result["value"] }}</td>
+        <td>{{ result["processed"] }}</td>
+        <td>{{ result["defected"] }}</td>
+        <td>{{ result["ratio"] }}</td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+
+{% endblock %}

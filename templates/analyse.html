@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Analyse
+{% endblock %}
+
+{% block body %}
+
+<div>
+
+    <form action="/analysis" method="get">
+
+        <label for="parameter"><strong>Analyse the effect of:</strong></label><br>
+        {% for parameter in parameters %}
+            <input class="form-check-input" id="parameter-{{ parameter[0] }}" name="parameter" onclick="processSelector('{{ parameter[0] }}')" required type="radio" value="{{ parameter[0] }}">
+            <label for="parameter-{{ parameter[0] }}" style="margin-left: 5px; margin-right: 15px;">{{ parameter[1] }}</label>
+        {% endfor %}<br><br>
+
+        <label for="defect"><strong>On:</strong></label><br>
+        {% for defect in defects %}
+            <input class="form-check-input" id="defect-{{ defect[0] }}" name="defect" required type="radio" value="{{ defect[0] }}">
+            <label for="defect-{{ defect[0] }}" style="margin-left: 5px; margin-right: 15px;">{{ defect[0] }}</label>
+
+        {% endfor %}<br><br>
+
+        <div id="proc-select">
+            <label for="process"><strong>During:</strong></label><br>
+            {% for process in processes %}
+                <input class="process form-check-input" id="{{ process[0] }}" name="process" required type="radio" value="{{ process[1] }}">
+                <label for="{{ process[0] }}" style="margin-left: 5px; margin-right: 15px;">{{ process[1] }}</label>
+            {% endfor %}<br><br>
+        </div>
+
+        <button class="btn btn-primary" type="submit">Analyse</button>
+
+    </form>
+
+</div>
+
+{% endblock %}

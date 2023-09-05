@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<p><h3><strong>Welcome to Bonbons!</strong></h3></p>
+
+<p>I created this web app as my final project for CS50x. <br>The idea is coming from my actual job in the field of production and process engineering.
+    This web app imitates the type of product and volume sizing we manufacture.</p>
+
+<p>Let's imagine a factory that manufactures bonbons. This happens in 3+1 steps: <strong>Filling, Coating, Topping + Quality inspection</strong>.</p>
+
+<p>Bonbons are created in batches. A <strong>batch</strong> is made up of 5 boxes. Each <strong>box</strong> contains 10 bonbons, therefore each batch consists of 50 bonbons.
+    <br>Each of the 10 bonbons in a box is created on a separate line but with the same parameters within the box. <br>Boxes within the same batch can have different parameters.</p>
+
+<p>These production <strong>parameters</strong> are: <br>The type of chocolate used: Milk, Dark or White. <br>The temperature of the process in Celsius degrees (&degC).</p>
+
+<p>After a batch is fully processed, Quality inspectors track every <strong>defect</strong> on the individual bonbons with unique defect codes.</p>
+{% endblock %}

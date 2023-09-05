@@ -1,0 +1,80 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Batch overview
+{% endblock %}
+
+{% block body %}
+
+<table class="table align-middle table-hover table-striped" style="text-align: center">
+    <tr>
+        <th>Name</th>
+        <th>Comment</th>
+        <th>Created by</th>
+        <th>Created at</th>
+        <th>Filling</th>
+        <th>Coating</th>
+        <th>Topping</th>
+        <th>Details</th>
+        <th>Quality (latest)</th>
+        <th>Inspection</th>
+    </tr>
+
+    {% for batch in batches %}
+
+    <tr>
+        <td>{{ batch["name"] }}</td>
+        <td>{{ batch["comment"] }}</td>
+        <td>{{ creators[batch["by"]] }}</td>
+        <td>{{ batch["created"] }}</td>
+        <td>
+            {% if batch["filling"] %}
+            {{ batch["filling"] }}
+            {% else %}
+            Waiting
+            {% endif %}
+        </td>
+
+        <td>
+            {% if batch["coating"] %}
+            {{ batch["coating"] }}
+            {% else %}
+            Waiting
+            {% endif %}
+        </td>
+
+        <td>
+            {% if batch["topping"] %}
+            {{ batch["topping"] }}
+            {% else %}
+            Waiting
+            {% endif %}
+        </td>
+
+        <td>
+            <a href="/batch-details/{{ batch['name'] }}">View details</a>
+        </td>
+
+        <td>
+            {% if batch["quality"] %}
+            {{ batch["quality"] }}
+            {% else %}
+            Waiting
+            {% endif %}
+        </td>
+
+        <td>
+            {% if batch["quality"] %}
+            <a href="/inspection-view/{{ batch['name'] }}">View inspection</a>
+            {% else %}
+            Waiting
+            {% endif %}
+        </td>
+
+    </tr>
+
+    {% endfor %}
+
+</table>
+
+{% endblock %}
