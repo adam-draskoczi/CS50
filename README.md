@@ -7,7 +7,7 @@ NOTE: This project is being continously updated and improved as I keep getting t
 
 Welcome to Bonbons!
 
-I created this web app as my final project for CS50x. The idea is coming from my actual job in the field of production and process engineering. This web app imitates the type of product and volume sizing that I have been manufacturing.
+I created this web app as my final project for CS50x. The idea is coming from my actual job in the field of production and process engineering. This web app imitates the type of product and volume sizing that I have been manufacturing. (Even though it's been changed from solar panels to bonbons because who doesn't love bonbons?)
 
 Let's imagine a factory that manufactures bonbons. This happens in 3+1 steps: Filling, Coating, Topping + Quality inspection.
 Bonbons are created in batches. A batch is made up of 5 boxes. Each box contains 10 bonbons, therefore each batch consists of 50 bonbons. Each of the 10 bonbons in a box is created on a separate line but with the same parameters within the box. Boxes within the same batch can have different parameters.
