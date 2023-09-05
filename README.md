@@ -2,6 +2,19 @@
 #### Video Demo:    https://youtu.be/dqhidrnzuU0
 #### Description:
 
+Welcome to Bonbons!
+
+I created this web app as my final project for CS50x. The idea is coming from my actual job in the field of production and process engineering. This web app imitates the type of product and volume sizing that I have been manufacturing.
+
+Let's imagine a factory that manufactures bonbons. This happens in 3+1 steps: Filling, Coating, Topping + Quality inspection.
+Bonbons are created in batches. A batch is made up of 5 boxes. Each box contains 10 bonbons, therefore each batch consists of 50 bonbons. Each of the 10 bonbons in a box is created on a separate line but with the same parameters within the box. Boxes within the same batch can have different parameters.
+
+These production parameters are: 
+The type of chocolate used: Milk, Dark or White. 
+The temperature of the process in Celsius degrees (°C).
+
+After a batch is fully processed, Quality inspectors track every defect on the individual bonbons with unique defect codes.
+
 #### bonbons.db
 
 This file contains the SQL database my program uses.
